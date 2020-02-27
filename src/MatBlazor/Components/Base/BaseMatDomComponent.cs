@@ -11,6 +11,9 @@ namespace MatBlazor
         [Parameter]
         public string Id { get; set; } = IdGeneratorHelper.Generate("matBlazor_id_");
 
+        /// <summary>
+        /// Gets or sets a collection of additional attributes that will be applied to the created element.
+        /// </summary>
         [Parameter(CaptureUnmatchedValues = true)]
         public Dictionary<string, object> Attributes { get; set; }
 
@@ -41,6 +44,8 @@ namespace MatBlazor
             ClassMapper
                 .Get(() => this.Class)
                 .Get(() => this.Theme?.GetClass());
+            
+            StyleMapper.Get(() => Style);
         }
 
         /// <summary>
@@ -61,18 +66,11 @@ namespace MatBlazor
         public string Style
         {
             get => _style;
-            set
-            {
-                _style = value;
-                this.StateHasChanged();
-            }
+            set { _style = value; }
         }
 
 
-        protected virtual string GenerateStyle()
-        {
-            return Style;
-        }
+        protected StyleMapper StyleMapper = new StyleMapper();
 
         private string _class;
         private string _style;

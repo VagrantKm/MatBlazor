@@ -1,0 +1,18 @@
+﻿@namespace MatBlazor
+@* @typeparam TItem *@
+@inherits BaseMatDataTable
+
+<div class="@ClassMapper.AsString()" style="@StyleMapper.AsString()" @ref="@Ref" id="@Id" @attributes="@Attributes">
+    <table class="mdc-data-table__table">
+        @ChildContent
+    </table>
+</div>
+
+
+@code
+{
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+    }
+}

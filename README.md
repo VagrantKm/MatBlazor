@@ -30,9 +30,8 @@ Don't know what Blazor is? Read [here](https://github.com/aspnet/Blazor)
 
 Complete all Blazor dependencies.
 
-- .NET Core 3.0
-- Visual Studio 2019 Preview with the ASP.NET and web development workload selected.
-- The latest Blazor extension from the Visual Studio Marketplace.
+- .NET Core 3.1
+- Visual Studio 2019 with the ASP.NET and web development workload selected.
 
 ## Installation 
 
@@ -49,34 +48,11 @@ or
 dotnet add package MatBlazor
 ```
 
-## MatBlazor components for server-side Blazor (Razor Components)
+For client-side and server-side Blazor - add script section to index.html or _Host.cshtml (head section) 
 
-Install [EmbeddedBlazorContent](https://github.com/SamProf/EmbeddedBlazorContent) library:  [![NuGet](https://img.shields.io/nuget/v/EmbeddedBlazorContent.svg)](https://www.nuget.org/packages/EmbeddedBlazorContent/)
-
-To Install 
-
-```
-Install-Package EmbeddedBlazorContent
-```
-or 
-```
-dotnet add package EmbeddedBlazorContent
-```
-
-Change the following to files:
-- Startup.cs
-```
-using EmbeddedBlazorContent;
-...
-app.UseEmbeddedBlazorContent(typeof(MatBlazor.BaseMatComponent).Assembly);
-```
-- _Host.cshtml (head section)  
 ```html
-@using EmbeddedBlazorContent
-<head>
-    ...
-    @Html.EmbeddedBlazorContent()
-</head>
+<script src="_content/MatBlazor/dist/matBlazor.js"></script>
+<link href="_content/MatBlazor/dist/matBlazor.css" rel="stylesheet" />
 ```
 
 
@@ -110,14 +86,137 @@ If you think that this project helped you or your company in any way, you can co
 - [PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=9XT68N2VKWTPE&source=url)
 - [Patreon](https://www.patreon.com/SamProf)
 
+### Sponsors:
+- Phil Parkin
+
+
 ### Backers:
-- Yevhen Shmakov
+- Oyvind Habberstad
+- SmartView Systems
+- [Apply Solutions GmbH](https://www.apply-solutions.com/)
+- Radu Tomuleasa
 - [Maurizio Verde](https://github.com/MaurizioVerde)
+- Yevhen Shmakov
 - Jacobus Terhorst
 - Xiao Song
+- Martin Friesenbichler
 
 
 ## News
+
+### Roadmap
+- `MatDataTable` - complete new component
+- `MatDatePicker` - improvements
+- `MatTreeView` - complete new component
+- `MatVirtualScroll` - complete new component
+- `MatAutocomplete` - new implementation of component
+
+
+#### MatBlazor 2.2.0
+- .NET Core 3.1.2 + .NET Core 3.2.0-Preview 1 Releases
+- `MatSortHeader`, `MatSortHeaderRow` - New component
+- Fix: MatDatePicker always display's current month/year #431
+
+#### MatBlazor 2.1.2
+- `MatPaginator` - New component
+- Fix: Impelement custom `hoistMenuToBody` for MatSelect and MatMenu - fix #415
+- Fix: Ripple effect for MatButton
+
+#### MatBlazor 2.1.1
+- MatSelect, MatSelectItem, MatSelectValue components supports EditContext
+- ValidationDisabled parameter added to input components
+- PR: Update MatBlazor Demo Menu #414 (Thanks to [americanslon](https://github.com/americanslon))
+- PR: Updated prerequisites #413 (Thanks to [NPadrutt](https://github.com/NPadrutt))
+
+#### MatBlazor 2.1.0
+- Breaking changes - Upgrade an existing project
+  - Add `<link href="_content/MatBlazor/dist/matBlazor.css" rel="stylesheet" />` to html code
+  - Update to `.NET Core 3.2 Preview 1` libraries
+- PR: Update to .NET Core 3.2 Preview 1 #409 (Thanks to [enkodellc](https://github.com/enkodellc))
+- PR: Separation of CSS and JS resources #408 (Thanks to [RonPeters](https://github.com/RonPeters))
+- MatSelectItem`<TValue>`
+  - Populate options using Items collections and optional `ItemTemplate`
+  - Generic type supports: `TValue` parameter should be defined if he is not inferred.
+  - Supports Blazor validation using `EditContext`
+  - Supported types: **any**  
+- MatSelectValue`<TItem, TValue>`
+  - Populate options using Items collections and optional `ItemTemplate` using `ValueSelector`
+  - Generic type supports: `TValue` parameter should be defined if he is not inferred.
+  - Supports Blazor validation using `EditContext`
+  - Supported types: **any**
+
+
+- `MatFileUpload` - progress bar added, improoved performance
+
+#### MatBlazor 2.0.5
+- `MatFileUpload` - inital version of component
+- Implemented: Add possibility of initial state of MatIconButton #401. Implemented `Toggled` parameter and `ToggledChanged`.
+- Fixed: Small bug with numeric up/down field #402. Overflow in numeric values.
+
+#### MatBlazor 2.0.1
+- `MatSelect` was rewrited and prepared for `MatSelectItem` and `MatSelectValue`, supported only `Enhanced` mode, Disabled for `MatOption` is temporary not working
+- PR: Added MatTreeView #360 (Thanks to [sprotty](https://github.com/sprotty))
+- PR: Filtering on multiple columns #384 (Thanks to [VDSYannick](https://github.com/VDSYannick))
+- PR: Fix #393, Fix #319, MatNavItem still clickable when disabled=true. Add OnClick to MatNavItem #394 (Thanks to [enkodellc](https://github.com/enkodellc))
+- PR: Prevent circular overflow on MatNumericUpDownField #378 (Thanks to [sebestyn168](https://github.com/sebestyn168))
+- PR: Added @key attribute to MatTable table row #361  (Thanks to [plebnz](https://github.com/plebnz))
+- PR: added @key attribute to MatTab content #395 (Thanks to [chris1411](https://github.com/chris1411))
+- PR: Matlist selectedIndex default value set to -1 #354 (Thanks to [radutomy](https://github.com/radutomy))
+
+### MatBlazor 2.0.0 (Reinvention MatBlazor Forms)
+- This release contain a lot of breaking changes, sorry for that.
+- The main goal of this release was to unify all components for forms, generic type support, reduction of dependence of JS, active use of OOP and the possibility of more active expansion in the future.
+- Update to .NET Core 3.1 Preview 4
+- MatAutocomplete
+  - `MatAutocomplete` renamed to `MatAutocompleteList`
+  - `ItemType` renamed to `TItem`
+  - `Collection` renamed to `Items`
+  - new `MatAutocomplete` component will be in 2.1.0
+- MatCheckbox
+  - Generic type supports: `TValue` parameter should be defined if he is not inferred.
+  - Supported types: `bool`, `bool?`
+  - Indeterminate mode
+  - Supports Blazor validation using `EditContext`
+  - `Checked` renamed to `Value`
+  - `CheckedChanged` renamed to `ValueChanged` 
+  - Unmatched `Attributes` is appended to main component HtmlElement (not InputElement). Use `InputAttributes` instead.
+- MatDatePicker
+  - Generic type supports: `TValue` parameter should be defined if he is not inferred.
+  - Supported types: `DateTime`, `DateTime?`
+  - Supports Blazor validation using `EditContext`
+  - `DateFormat` renamed to `Format`, and this is **full .NET formatting of DateTime**
+  - `Minimum`, `Maximum` paramneteres added
+  - `NoCalendar` renamed to `DisableCalendar`
+  - `AltFormat`, `AltInputClass`, `Inline` removed
+- MatNumericUpDownField
+  - Generic type supports: `TValue` parameter should be defined if he is not inferred.
+  - Supported types: `sbyte`, `byte`, `short`, `ushort`, `int`, `uint`, `long`, `ulong`, `char`, `float`, `double`, `decimal`, `decimal?`
+  - Supports Blazor validation using `EditContext`
+- MatRadioButton
+  - Generic type supports: `TValue` parameter should be defined if he is not inferred.
+  - Supported types: any
+  - Supports Blazor validation using `EditContext`
+- MatSelect  
+  - Populate options using `MatOption` component manually
+  - Generic type supports: `TValue` parameter should be defined if he is not inferred.
+  - Supports Blazor validation using `EditContext`
+  - Supported types: `string`, `sbyte`, `byte`, `short`, `ushort`, `int`, `uint`, `long`, `ulong`, `char`, `float`, `double`, `decimal`, `decimal?`, `DateTime`, `DateTime?`, `bool`, `bool?`
+  - For string values - **`MatSelectString`**, **`MatOptionString`**  
+- MatSlider
+  - Generic type supports: `TValue` parameter should be defined if he is not inferred.
+  - Supported types: `sbyte`, `byte`, `short`, `ushort`, `int`, `uint`, `long`, `ulong`, `char`, `float`, `double`, `decimal`, `decimal?`
+  - Supports Blazor validation using `EditContext`
+  - Added `Step` parameter
+- MatSlideToggle
+  - Generic type supports: `TValue` parameter should be defined if he is not inferred.
+  - Supported types: `bool`, `bool?`
+  - Supports Blazor validation using `EditContext`
+- MatTextField, **MatStringField**
+  - Generic type supports: `TValue` parameter should be defined if he is not inferred.
+  - Supported types: `string`, `sbyte`, `byte`, `short`, `ushort`, `int`, `uint`, `long`, `ulong`, `char`, `float`, `double`, `decimal`, `decimal?`, `DateTime`, `DateTime?`, `bool`, `bool?`
+  - Supports Blazor validation using `EditContext`
+  - New component `MatStringField` - replacement old `MatTextField` - just for `string` values without generic `TValue` parameter.
+- `MatBlazorInstall` - removed
 
 
 ### MatBlazor 1.10.1
@@ -401,7 +500,7 @@ For *how-to* questions and other non-issues, for now you can use issues or you c
 We'd greatly appreciate any contribution you make. :)
 
 
-## Roadmap
+## Vision
 
 In the near future we plan to maximize the count and features of the components inspired by other frameworks like Angular Material, React Material UI and Vue Material.
 1) Implementation of  base functionality from MDC Web

@@ -4,7 +4,7 @@
 
 
 <h1 class="mat-h1"><img src="https://raw.githubusercontent.com/SamProf/MatBlazor/master/content/logo.png" style="max-height: 100px;"/> MatBlazor</h1>
-<h4 class="mat-h4">Material Design components for Blazor and Razor Components.</h4>
+<h4 class="mat-h4">Material Design components for Blazor (@(typeof(BaseMatComponent).Assembly.GetName().Version.ToString(3)))</h4>
 <div>
     <a href="https://www.nuget.org/packages/MatBlazor/" target="_blank">
         <img src="https://img.shields.io/nuget/v/MatBlazor.svg"/>
@@ -80,30 +80,14 @@
                     </BlazorFiddle>
                 </p>
 
-                <h5 class="mat-h5">MatBlazor components for server-side Blazor (ex Razor Components)</h5>
+                <h5 class="mat-h5">Static files</h5>
 
                 <p>
-                    Used
-                    <a href="https://github.com/SamProf/EmbeddedBlazorContent">
-                        <b>EmbeddedBlazorContent</b>
-                    </a> library:
-                    <a href="https://www.nuget.org/packages/EmbeddedBlazorContent/" target="_blank">
-                        <img src="https://img.shields.io/nuget/v/EmbeddedBlazorContent.svg"/>
-                    </a>
-                </p>
-
-                <p>
-                    1) Startup.cs
-                    <BlazorFiddle Template="MatBlazor" Code=@(@"app.UseEmbeddedBlazorContent(typeof(MatBlazor.BaseMatComponent).Assembly);")>
-                    </BlazorFiddle>
+                    For client-side and server-side Blazor - add script section to index.html or _Host.cshtml (head section)
                 </p>
                 <p>
-                    2) _Host.cshtml (head section)
-                    <BlazorFiddle Template="MatBlazor" Code=@(@"@using EmbeddedBlazorContent
-<head>
-    ...
-    @Html.EmbeddedBlazorContent()
-</head>")>
+                    <BlazorFiddle Template="MatBlazor" Code=@(@"<script src=""_content/MatBlazor/dist/matBlazor.js""></script>
+<link href=""_content/MatBlazor/dist/matBlazor.css"" rel=""stylesheet"" />")>
                     </BlazorFiddle>
                 </p>
 

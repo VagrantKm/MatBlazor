@@ -1,0 +1,36 @@
+﻿@namespace MatBlazor
+
+
+
+@if (Mode == MatDataTableRenderMode.Header)
+{
+    <MatDataTableHeaderCell>
+        @if (HeaderTemplate != null)
+        {
+            @HeaderTemplate
+        }
+        else
+        {
+            @Header
+        }
+    </MatDataTableHeaderCell>
+}
+else if (Mode == MatDataTableRenderMode.Row)
+{
+    <MatDataTableCell>@ChildContent</MatDataTableCell>
+}
+
+@code
+{
+    [CascadingParameter()]
+    public MatDataTableRenderMode Mode { get; set; }
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    [Parameter]
+    public string Header { get; set; }
+
+    [Parameter]
+    public RenderFragment HeaderTemplate { get; set; }
+}

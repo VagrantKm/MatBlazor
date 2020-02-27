@@ -35,6 +35,7 @@
         public NavGroup Group;
         public string Name;
         public string Url;
+        public int Order;
     }
 
     class NavGroup
@@ -60,7 +61,7 @@
     protected async override Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-   
+
         var groups = new
         {
             FormControls = new NavGroup("Form Controls", 1),
@@ -68,14 +69,28 @@
             Layout = new NavGroup("Layout", 3),
             ButtonsAndIndicators = new NavGroup("Buttons & Indicators", 4),
             PopupsAndModals = new NavGroup("Popups & Modals", 5),
-            Other = new NavGroup("Other", 6),
+            DataTable = new NavGroup("Data Table", 6),
+            Other = new NavGroup("Other", 10),
         };
         var navItems = new[]
         {
             new NavItem()
             {
-                Name = "Autocomplete",
-                Url = "Autocomplete",
+                Name = "Validation via EditContext",
+                Url = "EditContext",
+                Group = groups.FormControls,
+                Order = 1
+            },
+    //            new NavItem()
+    //            {
+    //                Name = "Autocomplete",
+    //                Url = "Autocomplete",
+    //                Group = groups.FormControls,
+    //            },
+            new NavItem()
+            {
+                Name = "AutocompleteList",
+                Url = "AutocompleteList",
                 Group = groups.FormControls,
             },
             new NavItem()
@@ -100,6 +115,18 @@
             {
                 Name = "Select",
                 Url = "Select",
+                Group = groups.FormControls,
+            },
+            new NavItem()
+            {
+                Name = "SelectItem",
+                Url = "SelectItem",
+                Group = groups.FormControls,
+            },
+            new NavItem()
+            {
+                Name = "SelectValue",
+                Url = "SelectValue",
                 Group = groups.FormControls,
             },
             new NavItem()
@@ -162,6 +189,12 @@
                 Url = "List",
                 Group = groups.Layout
             },
+    // new NavItem()
+    // {
+    //     Name = "TreeView",
+    //     Url = "TreeView",
+    //     Group = groups.Layout
+    // },
             new NavItem()
             {
                 Name = "Button",
@@ -218,12 +251,6 @@
             },
             new NavItem()
             {
-                Name = "Table",
-                Url = "Table",
-                Group = groups.Layout
-            },
-            new NavItem()
-            {
                 Name = "Tab",
                 Url = "Tab",
                 Group = groups.Layout
@@ -232,6 +259,12 @@
             {
                 Name = "DatePicker",
                 Url = "DatePicker",
+                Group = groups.FormControls
+            },
+            new NavItem()
+            {
+                Name = "FileUpload",
+                Url = "FileUpload",
                 Group = groups.FormControls
             },
             new NavItem()
@@ -284,6 +317,24 @@
             },
             new NavItem()
             {
+                Name = "Table",
+                Url = "Table",
+                Group = groups.DataTable
+            },
+            new NavItem()
+            {
+                Name = "Paginator",
+                Url = "Paginator",
+                Group = groups.DataTable
+            },
+            new NavItem()
+            {
+                Name = "SortHeader",
+                Url = "SortHeader",
+                Group = groups.DataTable
+            },
+            new NavItem()
+            {
                 Name = "BaseComponent",
                 Url = "BaseComponent",
                 Group = groups.Other
@@ -294,6 +345,12 @@
                 Url = "ForwardRef",
                 Group = groups.Other
             },
+    // new NavItem()
+    // {
+    //     Name = "Test",
+    //     Url = "Test",
+    //     Group = groups.Other
+    // },
         };
 
 
@@ -307,7 +364,8 @@
                 {
                     Group = g.Key,
                     Items = g
-                        .OrderBy(i => i.Name)
+                        .OrderBy(i => i.Order)
+                        .ThenBy(i => i.Name)
                         .ToArray(),
                 };
             })

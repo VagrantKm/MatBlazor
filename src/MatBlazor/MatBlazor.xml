@@ -4,6 +4,11 @@
         <name>MatBlazor</name>
     </assembly>
     <members>
+        <member name="P:MatBlazor.BaseMatDomComponent.Attributes">
+            <summary>
+            Gets or sets a collection of additional attributes that will be applied to the created element.
+            </summary>
+        </member>
         <member name="P:MatBlazor.BaseMatDomComponent.Ref">
             <summary>
             Returned ElementRef reference for DOM element.
@@ -25,11 +30,22 @@
             </summary>
             <typeparam name="T">the natural type of the input's value</typeparam>
         </member>
-        <member name="P:MatBlazor.BaseMatInputComponent`1.ValidationDisabled">
+        <member name="P:MatBlazor.BaseMatInputComponent`1.Value">
             <summary>
-            When contained within an <see cref="P:MatBlazor.BaseMatInputComponent`1.EditContext"/> disables this control's
-            participation in validation checking.  This means that this control will not
-            reflect the validation state of the underlying data binding.
+            Gets or sets the value of the input. This should be used with two-way binding.
+            </summary>
+            <example>
+            @bind-Value="model.PropertyName"
+            </example>
+        </member>
+        <member name="P:MatBlazor.BaseMatInputComponent`1.ValueChanged">
+            <summary>
+            Gets or sets a callback that updates the bound value.
+            </summary>
+        </member>
+        <member name="P:MatBlazor.BaseMatInputComponent`1.ValueExpression">
+            <summary>
+            Gets or sets an expression that identifies the bound value.
             </summary>
         </member>
         <member name="P:MatBlazor.BaseMatInputComponent`1.EditContext">
@@ -42,26 +58,41 @@
             Gets the <see cref="P:MatBlazor.BaseMatInputComponent`1.FieldIdentifier"/> for the bound value.
             </summary>
         </member>
+        <member name="P:MatBlazor.BaseMatInputComponent`1.CurrentValue">
+            <summary>
+            Gets or sets the current value of the input.
+            </summary>
+        </member>
         <member name="P:MatBlazor.BaseMatInputComponent`1.FieldClass">
             <summary>
             Gets a string that indicates the status of the field being edited. This will include
             some combination of "modified", "valid", or "invalid", depending on the status of the field.
             </summary>
         </member>
-        <member name="M:MatBlazor.BaseMatInputComponent`1.NotifyFieldChanged">
-            <summary>
-            Should be invoked by whenever a bound value is changed, such
-            as right after the value's corresponding <i>ValueChanged</i>
-            EventCallback is invoked.
-            </summary>
-        </member>
-        <member name="P:MatBlazor.BaseMatInputComponent`1.ValueExpression">
-            <summary>
-            Gets or sets an expression that identifies the bound value.
-            </summary>
-        </member>
         <member name="M:MatBlazor.BaseMatInputComponent`1.SetParametersAsync(Microsoft.AspNetCore.Components.ParameterView)">
             <inheritdoc />
+        </member>
+        <member name="P:MatBlazor.BaseMatInputTextElementComponent`1.CurrentValueAsString">
+            <summary>
+            Gets or sets the current value of the input, represented as a string.
+            </summary>
+        </member>
+        <member name="M:MatBlazor.BaseMatInputTextElementComponent`1.FormatValueAsString(`0)">
+            <summary>
+            Formats the value as a string. Derived classes can override this to determine the formating used for <see cref="P:MatBlazor.BaseMatInputTextElementComponent`1.CurrentValueAsString"/>.
+            </summary>
+            <param name="value">The value to format.</param>
+            <returns>A string representation of the value.</returns>
+        </member>
+        <member name="M:MatBlazor.BaseMatInputTextElementComponent`1.TryParseValueFromString(System.String,`0@,System.String@)">
+            <summary>
+            Parses a string to create an instance of <typeparamref name="TValue"/>. Derived classes can override this to change how
+            <see cref="P:MatBlazor.BaseMatInputTextElementComponent`1.CurrentValueAsString"/> interprets incoming values.
+            </summary>
+            <param name="value">The string value to be parsed.</param>
+            <param name="result">An instance of <typeparamref name="TValue"/>.</param>
+            <param name="validationErrorMessage">If the value could not be parsed, provides a validation error message.</param>
+            <returns>True if the value could be parsed; otherwise false.</returns>
         </member>
         <member name="T:MatBlazor.BaseMatExpansionPanel">
             <summary>
@@ -73,80 +104,95 @@
             Acts as a container for items such as application title, navigation icon, and action items.
             </summary>
         </member>
-        <member name="T:MatBlazor.BaseMatAutocomplete`1">
+        <member name="T:MatBlazor.BaseMatAutocompleteList`1">
             <summary>
             The autocomplete is a normal text input enhanced by a panel of suggested options.
             </summary>
-            <typeparam name="ItemType">Type of element type.</typeparam>
+            <typeparam name="TItem">Type of element type.</typeparam>
         </member>
-        <member name="P:MatBlazor.BaseMatAutocomplete`1.NumberOfElementsInPopup">
+        <member name="P:MatBlazor.BaseMatAutocompleteList`1.NumberOfElementsInPopup">
             <summary>
             Maximum number of elements displayed in the popup
             </summary>
         </member>
-        <member name="P:MatBlazor.BaseMatAutocomplete`1.Label">
+        <member name="P:MatBlazor.BaseMatAutocompleteList`1.Label">
             <summary>
             The label of the TextField
             </summary>
         </member>
-        <member name="P:MatBlazor.BaseMatAutocomplete`1.Icon">
+        <member name="P:MatBlazor.BaseMatAutocompleteList`1.Icon">
             <summary>
             The Icon displayed as the leading icon for the TextField
             </summary>
         </member>
-        <member name="P:MatBlazor.BaseMatAutocomplete`1.StringValue">
+        <member name="P:MatBlazor.BaseMatAutocompleteList`1.StringValue">
             <summary>
             The StringValue displayed in the TextField
             </summary>
         </member>
-        <member name="P:MatBlazor.BaseMatAutocomplete`1.Value">
+        <member name="P:MatBlazor.BaseMatAutocompleteList`1.Value">
             <summary>
             The value to be used to pre-select an item from the list
             </summary>
         </member>
-        <member name="P:MatBlazor.BaseMatAutocomplete`1.ValueChanged">
+        <member name="P:MatBlazor.BaseMatAutocompleteList`1.ValueChanged">
             <summary>
             ValueChanged is fired when the value is selected(by clicking on an element in the popup)
             </summary>
         </member>
-        <member name="P:MatBlazor.BaseMatAutocomplete`1.ItemTemplate">
+        <member name="P:MatBlazor.BaseMatAutocompleteList`1.ItemTemplate">
             <summary>
             ItemTemplate is used to render the elements in the popup if no template is given then the string value of the objects is displayed..
             </summary>
         </member>
-        <member name="P:MatBlazor.BaseMatAutocomplete`1.CustomStringSelector">
+        <member name="P:MatBlazor.BaseMatAutocompleteList`1.CustomStringSelector">
             <summary>
             This function is used to select the string part from the item, used both for filtering and displaying if no ItemTemplate is defined.
             </summary>
         </member>
-        <member name="P:MatBlazor.BaseMatAutocomplete`1.Collection">
+        <member name="P:MatBlazor.BaseMatAutocompleteList`1.Items">
             <summary>
             The collection which should be rendered and filtered
             </summary>
         </member>
-        <member name="P:MatBlazor.BaseMatAutocomplete`1.Outlined">
+        <member name="P:MatBlazor.BaseMatAutocompleteList`1.Outlined">
             <summary>
             If this parameter is true then the style of the textbox is outlined see `MatTextfield`
             </summary>
         </member>
-        <member name="P:MatBlazor.BaseMatAutocomplete`1.OnOpenedChanged">
+        <member name="P:MatBlazor.BaseMatAutocompleteList`1.OnOpenedChanged">
             <summary>
             OnOpenedChanged is fired when the popup dialog is opened or close and the parameter indicates whenever is it open, the default value is false
             </summary>
         </member>
-        <member name="P:MatBlazor.BaseMatAutocomplete`1.OnTextChanged">
+        <member name="P:MatBlazor.BaseMatAutocompleteList`1.OnTextChanged">
             <summary>
             OnTextChanged is fired when the string value is changed(when an input occurs in the textfield or when an item is selected)
             </summary>
         </member>
-        <member name="P:MatBlazor.BaseMatAutocomplete`1.ShowClearButton">
+        <member name="P:MatBlazor.BaseMatAutocompleteList`1.ShowClearButton">
             <summary>
             This value indicates if the clear button(using a trailing icon) should be displayed, which can clear the entire text and the selected value), the default value is false
             </summary>
         </member>
-        <member name="P:MatBlazor.BaseMatAutocomplete`1.FullWidth">
+        <member name="P:MatBlazor.BaseMatAutocompleteList`1.FullWidth">
             <summary>
             This value indicates if the textfield and the dialog will be or not displayed in the full screen, the default value is false
+            </summary>
+        </member>
+        <member name="P:MatBlazor.BaseMatAutocompleteKey`2.ItemValueSelector">
+            <summary>
+            This function is used to select the string part from the item, used both for filtering and displaying if no ItemTemplate is defined.
+            </summary>
+        </member>
+        <member name="P:MatBlazor.BaseMatAutocompleteKey`2.NumberOfElementsInPopup">
+            <summary>
+            Maximum number of elements displayed in the popup
+            </summary>
+        </member>
+        <member name="P:MatBlazor.BaseMatAutocompleteKey`2.ItemTemplate">
+            <summary>
+            ItemTemplate is used to render the elements in the popup if no template is given then the string value of the objects is displayed..
             </summary>
         </member>
         <member name="T:MatBlazor.BaseMatButton">
@@ -225,22 +271,24 @@
             Card component for Blazor contain content and actions about a single subject. 
             </summary>
         </member>
-        <member name="T:MatBlazor.BaseMatCheckbox">
+        <member name="T:MatBlazor.BaseMatCheckboxInternal`1">
             <summary>
-            Checkboxes allow the user to select multiple options from a set.
+            Material Design Checkboxes for Blazor, allow the user to select multiple options from a set. 
             </summary>
+            <typeparam name="TValue">bool, bool?</typeparam>
         </member>
         <member name="T:MatBlazor.BaseMatChip">
             <summary>
             Chips are compact elements that allow users to enter information, select a choice, filter content, or trigger an action.
             </summary>
         </member>
-        <member name="T:MatBlazor.BaseMatDatePicker">
+        <member name="T:MatBlazor.BaseMatDatePickerInternal`1">
             <summary>
-            Datetime picker based on flatpickr.js
+            Material Design Datetime picker for Blazor
             </summary>
+            <typeparam name="TValue">DateTime, DateTime?</typeparam>
         </member>
-        <member name="T:MatBlazor.BaseMatDatePicker.flatpickrOptions">
+        <member name="T:MatBlazor.FlatpickrOptions">
             <summary>
             The options from https://flatpickr.js.org/options/
             </summary>
@@ -372,6 +420,26 @@
             Nav Item is a menu item in the Nav Menu. Inherits from Mat List Item.
             </summary>
         </member>
+        <member name="P:MatBlazor.BaseMatNavItem.Command">
+            <summary>
+             Command executed when the user clicks on an element.
+            </summary>
+        </member>
+        <member name="P:MatBlazor.BaseMatNavItem.CommandParameter">
+            <summary>
+             Command parameter.
+            </summary>
+        </member>
+        <member name="P:MatBlazor.BaseMatNavItem.AllowSelection">
+            <summary>
+            Specifies weather you the Nav Item can be selected / active.
+            </summary>
+        </member>
+        <member name="M:MatBlazor.BaseMatNavItem.OnClickHandler(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
+            <summary>
+             OnClickHandler parameter.
+            </summary>
+        </member>
         <member name="T:MatBlazor.BaseMatNavMenu">
             <summary>
             MatNavMenu provides a navigation container
@@ -388,69 +456,64 @@
             can toggle the expansion state of its sub menus.
             </summary>
         </member>
-        <member name="T:MatBlazor.BaseMatNumericUpDownField">
+        <member name="T:MatBlazor.BaseMatNumericUpDownFieldInternal`1">
             <summary>
-            Text fields allow users to input, edit, and select text.
+            Material Design NumericUpDown for Blazor, text fields allow users to input, edit, and select text.
             </summary>
-        </member>
-        <member name="P:MatBlazor.BaseMatNumericUpDownField.ReadOnly">
-            <summary>
-            When true, it specifies that an input field is read-only.
-            </summary>
-        </member>
-        <member name="P:MatBlazor.BaseMatNumericUpDownField.InputClass">
-            <summary>
-            Css class of input element
-            </summary>
-        </member>
-        <member name="P:MatBlazor.BaseMatNumericUpDownField.InputStyle">
-            <summary>
-            Style attribute of input element
-            </summary>
+            <typeparam name="TValue">sbyte, byte, short, ushort, int, uint, long, ulong, char, float, double, decimal, decimal?</typeparam>
         </member>
         <member name="T:MatBlazor.BaseMatProgressBar">
             <summary>
             Progress indicators display the length of a process or express an unspecified wait time.
             </summary>
         </member>
-        <member name="T:MatBlazor.BaseMatRadioButton">
+        <member name="T:MatBlazor.BaseMatRadioButtonInternal`1">
             <summary>
             Buttons communicate an action a user can take. They are typically placed throughout your UI, in places like dialogs, forms, cards, and toolbars.
             </summary>
+            <typeparam name="TValue">any</typeparam>
+        </member>
+        <member name="T:MatBlazor.BaseMatRadioGroupInternal`1">
+            <summary>
+            
+            </summary>
+            <typeparam name="TValue">any</typeparam>
         </member>
         <member name="T:MatBlazor.BaseMatRipple">
             <summary>
             Ripples are visual representations used to communicate the status of a component or interactive element. 
             </summary>
         </member>
-        <member name="T:MatBlazor.BaseMatSelect">
+        <member name="T:MatBlazor.BaseCoreMatSelect`2">
             <summary>
             Selects allow users to select from a single-option menu. It functions as a wrapper around the browser's native select element.
             </summary>
         </member>
-        <member name="T:MatBlazor.BaseMatSlider">
+        <member name="T:MatBlazor.BaseMatSlider`1">
             <summary>
-            Sliders let users select from a range of values by moving the slider thumb. 
+            Material Design Slider for Blazor. Sliders let users select from a range of values by moving the slider thumb. 
             </summary>
+            <typeparam name="TValue">sbyte, byte, short, ushort, int, uint, long, ulong, char, float, double, decimal, decimal?</typeparam>
         </member>
-        <member name="T:MatBlazor.BaseMatSlideToggle">
+        <member name="T:MatBlazor.BaseMatSlideToggle`1">
             <summary>
-            Component for on/off control that can be toggled via clicking or dragging.
+            Material Design SlideToggle for Blazor. Component for on/off control that can be toggled via clicking or dragging.
             </summary>
+            <typeparam name="TValue">bool, bool?</typeparam>
         </member>
         <member name="T:MatBlazor.BaseMatSnackbar">
             <summary>
             Snackbars provide brief messages about app processes at the bottom of the screen.
             </summary>
         </member>
+        <member name="T:MatBlazor.BaseMatSortHeader">
+            <summary>
+            The MatSortHeader and MatSortHeaderRow are used, respectively, to add sorting state and display to tabular data.
+            </summary>
+        </member>
         <member name="T:MatBlazor.BaseMatTabBar">
             <summary>
             WARNING: In Development progress
-            </summary>
-        </member>
-        <member name="T:MatBlazor.BaseMatTabGroup">
-            <summary>
-            MatTabGroup organize content into separate views where only one view can be visible at a time. Each tab's label is shown in the tab header and the active tab's label is designated with the animated ink bar.
             </summary>
         </member>
         <member name="T:MatBlazor.BaseMatTable">
@@ -533,45 +596,31 @@
             Mat Table Row display a table row   
             </summary>
         </member>
-        <member name="T:MatBlazor.BaseMatTextFieldView">
+        <member name="T:MatBlazor.BaseMatTabGroup">
             <summary>
-            Text fields allow users to input, edit, and select text.
+            MatTabGroup organize content into separate views where only one view can be visible at a time. Each tab's label is shown in the tab header and the active tab's label is designated with the animated ink bar.
             </summary>
         </member>
-        <member name="P:MatBlazor.BaseMatTextFieldView.ReadOnly">
+        <member name="P:MatBlazor.BaseMatInputTextComponent`1.ReadOnly">
             <summary>
             When true, it specifies that an input field is read-only.
             </summary>
         </member>
-        <member name="P:MatBlazor.BaseMatTextFieldView.InputClass">
+        <member name="P:MatBlazor.BaseMatInputTextComponent`1.InputClass">
             <summary>
             Css class of input element
             </summary>
         </member>
-        <member name="P:MatBlazor.BaseMatTextFieldView.InputStyle">
+        <member name="P:MatBlazor.BaseMatInputTextComponent`1.InputStyle">
             <summary>
             Style attribute of input element
             </summary>
         </member>
-        <member name="T:MatBlazor.BaseMatTextField">
+        <member name="T:MatBlazor.MatTextField`1">
             <summary>
-            Text fields allow users to input, edit, and select text.
+            Material Design Text Field for Blazor. Text fields allow users to input, edit, and select text.
             </summary>
-        </member>
-        <member name="P:MatBlazor.BaseMatTextField.ReadOnly">
-            <summary>
-            When true, it specifies that an input field is read-only.
-            </summary>
-        </member>
-        <member name="P:MatBlazor.BaseMatTextField.InputClass">
-            <summary>
-            Css class of input element
-            </summary>
-        </member>
-        <member name="P:MatBlazor.BaseMatTextField.InputStyle">
-            <summary>
-            Style attribute of input element
-            </summary>
+            <typeparam name="TValue">string, sbyte, byte, short, ushort, int, uint, long, ulong, char, float, double, decimal, decimal?, DateTime, DateTime?, bool, bool?</typeparam>
         </member>
         <member name="T:MatBlazor.BaseMatThemeProvider">
             <summary>
@@ -676,6 +725,203 @@
             <summary>
             The Material tooltip provides a text label that is displayed when the user hovers an element.
             </summary>
+        </member>
+        <member name="T:MatBlazor.MatTreeView`1">
+            <summary>
+            Renders the data as a tree.
+            </summary>
+            <typeparam name="TNode"></typeparam>
+        </member>
+        <member name="P:MatBlazor.MatTreeView`1.RootNode">
+            <summary>
+            The root node to be displayed in the tree
+            One of the following must be supplied <see cref="P:MatBlazor.MatTreeView`1.RootNode"/> or <see cref="P:MatBlazor.MatTreeView`1.RootNodes"/> (but NOT BOTH)
+            </summary>
+        </member>
+        <member name="P:MatBlazor.MatTreeView`1.RootNodes">
+            <summary>
+            All the root nodes displayed in the tree
+            One of the following must be supplied <see cref="P:MatBlazor.MatTreeView`1.RootNode"/> or <see cref="P:MatBlazor.MatTreeView`1.RootNodes"/> (but NOT BOTH)
+            </summary>
+        </member>
+        <member name="P:MatBlazor.MatTreeView`1.SelectedNode">
+            <summary>
+            The selected item in the tree
+            (Optional - default null)
+            </summary>
+        </member>
+        <member name="P:MatBlazor.MatTreeView`1.NodeTemplate">
+            <summary>
+            The template used to render the Node
+            (Required)
+            </summary>
+        </member>
+        <member name="P:MatBlazor.MatTreeView`1.GetChildNodesCallback">
+            <summary>
+            A function that gets all the child nodes for a given parentNode.
+            If lazy loading is supported and the child nodes have not yet been 
+            loaded then it should return null.
+            (Required)
+            </summary>
+            <remarks>
+            The function should return a collection of child nodes.
+               
+            This function maybe called many times for a given node.
+            
+            Loading on Demand
+            If Lazy loading is supported and the child nodes have not been loaded
+            then it should return null. 
+            If null is returned then <see cref="P:MatBlazor.MatTreeView`1.LoadChildNodesCallback"/> will be called to 
+            get the child nodes, to it must have been set.
+            </remarks>
+            <example><![CDATA[
+            <MatTreeView TNode="MyTreeNode"
+                        GetChildNodesCallback="@GetChildNodes" />
+            ...
+            @code {
+                private IEnumerable<MyTreeNode> GetChildNodes(MyTreeNode parentNode)
+                {
+                    if (parentNode.AreChildrenLoaded == false)
+                        return null; // LoadChildrenCallbackAsync will be called to load the child nodes
+                        
+                    return parentNode.Nodes;
+                }
+            }        
+            ]]></example>
+        </member>
+        <member name="P:MatBlazor.MatTreeView`1.LoadChildNodesCallback">
+            <summary>
+            A function to lazy load child nodes. Only required if lazy loading / load on demand
+            is used. 
+            (Optional - unless <see cref="P:MatBlazor.MatTreeView`1.GetChildNodesCallback"/> returns null)
+            </summary>
+            <remarks>
+            This function is called when <see cref="P:MatBlazor.MatTreeView`1.GetChildNodesCallback"/> returns null. 
+            This causes this function to be called which should load all the child nodes.
+            The callback is asynchronous and should return when the values have been loaded.
+            
+            If an error occurs during the loading, then throw an exception (the exceptions message
+            will be shown in the UI). The function many be called again for the same node in order
+            to re-try.
+            </remarks>
+            <example><![CDATA[
+            <MatTreeView TNode="MyTreeNode"
+                        GetChildNodesCallback="@GetChildNodes" 
+                        LoadChildNodesCallback="@LoadChildNodesAsync" />
+            ...
+            @code {
+                private IEnumerable<MyTreeNode> GetChildNodes(MyTreeNode parentNode)
+                {
+                    if (parentNode.AreChildrenLoaded == false)
+                        return null; // LoadChildrenCallbackAsync will be called to load the child nodes
+                        
+                    return parentNode.Nodes;
+                }
+                
+                private Task<IEnumerable<MyTreeNode>> LoadChildNodesAsync(MyTreeNode parentNode)
+                {
+                    if (parentNode.AreChildrenLoaded == false)
+                    {
+                        await parentNode.Nodes = MyWebApi.GetChildNodes(parentNode.ID);
+                    }
+                        
+                    return parentNode.Nodes;
+                }        
+            }        
+            ]]></example>        
+        </member>
+        <member name="P:MatBlazor.MatTreeView`1.IsNodeExpandedCallback">
+            <summary>
+            A function that indicates if the given node is expanded or collapsed.
+            (Optional - if null then the expanded/collapsed state is managed by the <see cref="T:MatBlazor.MatTreeView`1"/>)
+            </summary>
+            <example><![CDATA[
+            <MatTreeView TNode="MyTreeNode"
+                        IsNodeExpandedCallback="@((myTreeNode)=>myTreeNode.IsExpanded)" />
+            
+            or 
+            
+            <MatTreeView TNode="MyTreeNode"
+                        IsNodeExpandedCallback="@IsExpanded" />
+            ...
+            @code {
+                private bool IsExpanded(MyTreeNode myTreeNode)
+                {
+                    return myTreeNode.IsExpanded;
+                }
+            }
+            ]]></example>
+        </member>
+        <member name="P:MatBlazor.MatTreeView`1.ExpandStateChanged">
+            <summary>
+            An event raised when the expanded state of a node changes
+            </summary>
+        </member>
+        <member name="P:MatBlazor.MatTreeView`1.SelectedNodeChanged">
+            <summary>
+            An event raised when the selected node changes
+            </summary>
+        </member>
+        <member name="M:MatBlazor.MatTreeView`1.EnsureSelectedNodeIsVisible">
+            <summary>
+            Ensures that the selected node is visible, if its not then the
+            selection is moved to the first visible ancestor.
+            If no ansestors exist then its set to null
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:MatBlazor.LoadChildNodesDelegate`1">
+            <summary>
+            Callback used to Lazy Load child nodes
+            </summary>
+            <typeparam name="TNode">The node type</typeparam>
+            <param name="parentNode">The node to load the child nodes for</param>
+            <returns>All the child nodes (should not return null)</returns>
+            <exception cref="T:System.Exception">Throws if the data could not be loaded - the exceptions message will be displayed to the user</exception>
+        </member>
+        <member name="T:MatBlazor.GetChildNodesDelegate`1">
+            <summary>
+            A Callback used to get the child nodes for a given node
+            </summary>
+            <typeparam name="TNode">The node type</typeparam>
+            <param name="parentNode">The node to get the child nodes for</param>
+            <returns>The child nodes (if they are loaded) or null if they are not loaded and lazy loading is being used.</returns>
+        </member>
+        <member name="T:MatBlazor.IsNodeExpandedDelegate`1">
+            <summary>
+            A Callback used to determine if a node should be expanded or collapsed
+            </summary>
+            <typeparam name="TNode">The node type</typeparam>
+            <param name="parentNode">The node we want to know the expanded state for</param>
+            <returns>The expanded state of the node</returns>
+        </member>
+        <member name="T:MatBlazor.ExpandedStateChangedArgs`1">
+            <summary>
+            Event arguments passed when a node expanded state changes
+            </summary>
+            <typeparam name="TNode"></typeparam>
+        </member>
+        <member name="P:MatBlazor.ExpandedStateChangedArgs`1.Node">
+            <summary>
+            The node that's expanded state has changed
+            </summary>
+        </member>
+        <member name="P:MatBlazor.ExpandedStateChangedArgs`1.NewState">
+            <summary>
+            the new expanded state
+            </summary>
+        </member>
+        <member name="M:MatBlazor.LinqExtensions.FindIndex``1(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Boolean})">
+            <summary>Finds the index of the first item matching an expression in an enumerable.</summary>
+            <param name="items">The enumerable to search.</param>
+            <param name="predicate">The expression to test the items against.</param>
+            <returns>The index of the first matching item, or -1 if no items match.</returns>
+        </member>
+        <member name="M:MatBlazor.LinqExtensions.IndexOf``1(System.Collections.Generic.IEnumerable{``0},``0)">
+            <summary>Finds the index of the first occurrence of an item in an enumerable.</summary>
+            <param name="items">The enumerable to search.</param>
+            <param name="item">The item to find.</param>
+            <returns>The index of the first matching item, or -1 if the item was not found.</returns>
         </member>
         <member name="T:MatBlazor.MatToastCommonOptions">
             <summary>
